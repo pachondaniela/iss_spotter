@@ -2,7 +2,7 @@
 
 const { fetchMyIP } = require('./iss.js');
 const { fetchCoordsByIP } = require('./iss.js');
-
+const { fetchISSFlyOverTimes } = require('./iss.js');
 
 fetchMyIP((error, ip) => {
   if (error) {
@@ -19,7 +19,20 @@ fetchMyIP((error, ip) => {
     }
     console.log("The coordinates of the IP are: ", data);
 
+      fetchISSFlyOverTimes(data, (error, passes) => {
+        if (error) {
+        console.log("The coordinates dont exist", error);
+        return;
+        }
+      console.log("The Fly Over Array is: ", passes);
+
+    });
+
   });
+
+
+
+
   
 });
 
