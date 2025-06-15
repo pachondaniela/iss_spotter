@@ -40,7 +40,7 @@ const fetchCoordsByIP = function(ip, callback) {
       const message = `Success status was ${body.success}. Server message says: ${body.message} when fetching for IP ${body.ip}`;
       callback(Error(message), null);
       return;
-    } 
+    }
 
    
     const latitude = body.latitude;
@@ -51,36 +51,32 @@ const fetchCoordsByIP = function(ip, callback) {
 };
 
 const fetchISSFlyOverTimes = function({latitude, longitude}, callback) {
-  needle.get(`https://iss-flyover.herokuapp.com/json/?lat=${latitude}&lon=${longitude}` , 
-  { json: true },
-  (error, response, body) => {
+  needle.get(`https://iss-flyover.herokuapp.com/json/?lat=${latitude}&lon=${longitude}`,
+    { json: true },
+    (error, response, body) => {
   
-  if (error) {
-    callback(error, null);
-    return
-  }
+      if (error) {
+        callback(error, null);
+        return;
+      }
 
-  if (!body.response) {
+      if (!body.response) {
         const message = `Response missing. Full body: ${JSON.stringify(body)}`;
         callback(Error(message), null);
         return;
       }
 
-  if(body.response === "invalid coordinates") {
-    const message = "Please choose coordinates that exist";
-    callback(Error(message), null);
-    return;
-  }
+      if (body.response === "invalid coordinates") {
+        const message = "Please choose coordinates that exist";
+        callback(Error(message), null);
+        return;
+      }
 
-  const passes = body.response
-  callback(null, passes)
+      const passes = body.response;
+      callback(null, passes);
+    });
 
-
-  })
-
-}
-
-
+};
 
 module.exports = {
   fetchMyIP,

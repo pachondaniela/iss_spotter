@@ -19,11 +19,11 @@ fetchMyIP((error, ip) => {
     }
     console.log("The coordinates of the IP are: ", data);
 
-      fetchISSFlyOverTimes(data, (error, passes) => {
-        if (error) {
+    fetchISSFlyOverTimes(data, (error, passes) => {
+      if (error) {
         console.log("The coordinates dont exist", error);
         return;
-        }
+      }
       console.log("The Fly Over Array is: ", passes);
 
     });
